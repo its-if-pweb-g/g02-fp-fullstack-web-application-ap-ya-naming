@@ -24,10 +24,10 @@
 
 ## Cara menjalankan aplikasi
 
-1. Buka terminal dan run command di bawah ini
+1. Buka terminal dan run command di ini
    `git clone https://github.com/its-if-pweb-g/g02-fp-fullstack-web-application-ap-ya-naming.git`
-2. Pindah ke direktori dari repository tersebut dengan menggunakan command `cd g02-fp-fullstack-web-application-ap-ya-naming`
-3. a
+3. Pindah ke direktori dari repository tersebut dengan menggunakan command `cd g02-fp-fullstack-web-application-ap-ya-naming`
+4. a
 
    
 ## Progress pembuatan dan pembagian tugas per anggota
