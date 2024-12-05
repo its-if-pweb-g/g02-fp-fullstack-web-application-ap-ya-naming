@@ -22,5 +22,12 @@
 
 ## Progress pembuatan dan pembagian tugas per anggota
 
+| NRP | Nama | Tugas |
+|:-----------:|:--------:|:-----------:|
+|  5025231138  | Aqila Zahira Naia Puter Arifin |   |
+|  5025231147  | Hikmia Sofia Nur Izzati |   |
+|  5025231150  | Mazaya Khairana Nariswari |   |
+
+
 ## Dokumentasi website
 `masukkan gambar dari website yang dibuat`
