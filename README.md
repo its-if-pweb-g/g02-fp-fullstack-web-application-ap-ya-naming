@@ -20,14 +20,14 @@
 
 
 ## Teknologi yang digunakan
-
+React JS, MongoDB, Express & Node JS
 
 ## Cara menjalankan aplikasi
 
 1. Buka terminal dan run command di ini
    `git clone https://github.com/its-if-pweb-g/g02-fp-fullstack-web-application-ap-ya-naming.git`
 3. Pindah ke direktori dari repository tersebut dengan menggunakan command `cd g02-fp-fullstack-web-application-ap-ya-naming`
-4. a
+4. Lalu, untuk menjalankan aplikasi ini ketikkan comand `npm start`
 
    
 ## Progress pembuatan dan pembagian tugas per anggota
