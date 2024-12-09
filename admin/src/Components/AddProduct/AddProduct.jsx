@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./AddProduct.css";
-import upload_area from '../../assets_upload_area.png' // belom ada file nya
+import upload_area from '../../assets/Assets/upload_area.png' // belom ada file nya
 
 const AddProduct = () => {
     const [image,setImage] = useState(false);
@@ -35,7 +35,22 @@ const AddProduct = () => {
                 Accept:'application/json',
             },
             body:formData,
-        }).then((resp)=>resp.json().then((data)=>{responseData=data}))
+        }).then((resp)=>resp.json()).then((data)=>{responseData=data});
+
+        if(responseData.success) {
+            product.image = responseData.image_url;
+            console.log(product);
+            await fetch('http://localhost:4000/addproduct',{
+                method:'POST',
+                headers:{
+                  Accept:'application/json',
+                  'Content-Type':'application/json',
+                },
+                body:JSON.stringify(product),
+            }).then((resp)=>resp.json()).then((data)=>{
+                data.success?alert("Product Added"):alert("Failed")
+            })
+        }
     }
 
   return (
@@ -64,7 +79,7 @@ const AddProduct = () => {
         </div>
         <div className="addproduct-itemfield">
             <label htmlFor="file-input">
-                <img src={image?URL.createObjectURL(image):upload_area} alt="addproduct-thumbnail-img" />
+                <img src={image?URL.createObjectURL(image):upload_area} className="addproduct-thumbnail-img" />
             </label>
             <input onChange={imageHandler} type="file" name="image" id="file-input" hidden/>
         </div>

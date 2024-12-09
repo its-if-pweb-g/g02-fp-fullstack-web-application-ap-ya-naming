@@ -12,6 +12,8 @@ const { type } = require("os");
 // Middleware to parse JSON
 app.use(express.json());
 
+app.use(cors());
+
 // Database connection with MongoDB
 mongoose.connect("mongodb://user-g:g-for-goodluck@db.nafkhanzam.com/pweb-g");
 
@@ -74,7 +76,7 @@ const Product = mongoose.model("Product",{
         type:Boolean,
         default:true,
     },
-})
+}, 'shoepping-products')
 
 // API for adding products
 app.post('/addproduct', async(req,res)=>{
@@ -119,6 +121,80 @@ app.get('/allproducts', async(req,res)=>{
     let products = await Product.find({});
     console.log("All Products Fetched");
     res.send(products);
+})
+
+// schema for creating user model
+const Users = mongoose.model('Users',{
+    name:{
+        type:String,
+    },
+    email:{
+        type:String,
+        unique:true,
+    },
+    password:{
+        type:String,
+    },
+    cartData:{
+        type:Object,
+    },
+    date:{
+        type:Date,
+        default:Date.now,
+    }
+}, 'shoepping-users')
+
+// endpoint for user register
+app.post('/signup',async (req,res)=>{
+    let check = await Users.findOne({email:req.body.email});
+    if (check) {
+        return res.status(400).json({success:false,errors:"existing user found with same email address"})
+    }
+    let cart = {};
+    for (let i = 0; i < 300; i++) {
+        cart[i]=0;
+    }
+    const user = new Users({
+        name:req.body.username,
+        email:req.body.email,
+        password:req.body.password,
+        cartData:cart,
+    })
+
+    await user.save();
+
+    const data = {
+        user:{
+            id:user.id
+        }
+    }
+
+    const token = jwt.sign(data,'secret_ecom');
+    res.json({success:true,token})
+
+})
+
+// endpoint for user login
+app.post('/login',async (req,res)=>{
+    let user = await Users.findOne({email:req.body.email});
+    if (user){
+        const passCompare = req.body.password === user.password;
+        if (passCompare) {
+            const data = {
+                user:{
+                    id:user.id
+                }
+            }
+            const token = jwt.sign(data,'secret_ecom');
+            res.json({success:true,token});
+        }
+        else{
+            res.json({success:false,errors:"Wrong Password"});
+        }
+    }  
+    else{
+        res.json({success:false,errors:"Email not registered"});
+    }    
 })
 
 app.listen(port,(error)=>{

@@ -9,7 +9,7 @@
 }
 .addproduct-itemfield{
     width: 100%;
-    color: #ffccd5;
+    color: #ff8fa3;
     font-size: 16px;
 }
 .addproduct-itemfield input{
@@ -18,9 +18,9 @@
     height: 50px;
     border-radius: 4px;
     padding-left: 15px;
-    border: 1px solid #fff0f3;
+    border: 1px solid #ff8fa3;
     outline: none;
-    color: #ffccd5;
+    color: #000000;
     font-family: 'Poppins';
     font-size: 14px ;
 }
@@ -33,19 +33,17 @@
     width: 100px;
     height: 50px;
     font-size: 14px;
-    color: #ffccd5;
+    color: #ff8fa3;
     border: 1px solid #ff8fa3;
     border-radius: 4px;
 }
 .addproduct-thumbnail-img{
-    height: 120px;
-    width: 120px;
-    border-radius: 10px;
+    height: 200px;
+    border-radius: 4px;
     object-fit: contain;
-    margin: 10px 0px;
+    margin: 20px 0px;
 }
 .addproduct-btn{
-    margin-top: 20px;
     width: 160px;
     height: 50px;
     border-radius: 6px;
