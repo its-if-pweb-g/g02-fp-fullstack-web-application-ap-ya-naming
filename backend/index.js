@@ -239,7 +239,7 @@ app.get('/newcollections',async (req,res)=>{
 
 // endpoint popular women
 app.get('/popularinwomen', async (req,res)=>{
-    let products = await Product.find({category:"women"});
+    let products = await Product.find({category:"Women"});
     let popular_in_women = products.slice(0,4);
     console.log("Popular in Women Fetched");
     res.send(popular_in_women);

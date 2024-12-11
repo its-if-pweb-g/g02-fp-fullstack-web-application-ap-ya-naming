@@ -39,6 +39,26 @@
     border-radius: 10px;
     background: #ff8fa3;
 }
+.nav-search {
+    display: flex;
+    align-items: center;
+    margin: 0 60px;
+    flex-grow: 1;
+}
+
+.nav-search input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    font-size: 16px;
+    outline: none;
+}
+
+.nav-search input:focus {
+    border-color: #ff8fa3;
+}
+
 .nav-login-cart{
     display: flex;
     align-items: center;
