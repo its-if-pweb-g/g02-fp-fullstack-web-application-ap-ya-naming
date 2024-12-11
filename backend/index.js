@@ -10,18 +10,33 @@ const { error } = require("console");
 const { type } = require("os");
 const bcrypt = require('bcrypt');
 
+
 // Middleware to parse JSON
 app.use(express.json());
 
 app.use(cors());
 
 // Database connection with MongoDB
-mongoose.connect("mongodb://user-g:g-for-goodluck@db.nafkhanzam.com/pweb-g");
-
+mongoose.connect("mongodb://user-g:g-for-goodluck@db.nafkhanzam.com/pweb-g", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("Connected to MongoDB");
+}).catch((err) => {
+    console.log("Error connecting to MongoDB: ", err);
+    process.exit(1);  // Exit the application if connection fails
+});
 // API
 app.get("/",(req,res)=>{
     res.send("Express app is running");
 })
+
+app.use((req, res, next) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(500).json({ error: 'Database not connected' });
+    }
+    next();
+});
 
 // Image storage engine
 const storage = multer.diskStorage({
@@ -116,6 +131,31 @@ app.post('/removeproduct', async(req,res)=>{
         name:req.body.name,
     })
 })
+
+app.get('/product/:id', async (req, res) => {
+    const { id } = req.params;
+    const product = await Product.findOne({ id });
+    if (!product) return res.status(404).json({ error: 'Product not found' });
+    res.json(product);
+  });
+
+  app.post('/updateproduct/:id', async (req, res) => {
+    try {
+        const updatedProduct = await Product.findOneAndUpdate(
+            { id: req.params.id },
+            { $set: req.body },
+            { new: true }  // Return the updated document
+        );
+        if (!updatedProduct) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        console.log('Updated Product:', updatedProduct);
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error while updating product' });
+    }
+});
 
 // API for getting all products
 app.get('/allproducts', async(req,res)=>{

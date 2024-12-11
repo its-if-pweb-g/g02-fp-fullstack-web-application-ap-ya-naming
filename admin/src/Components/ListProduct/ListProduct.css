@@ -4,10 +4,11 @@
     text-align: center;
     width: 100%;
     height: 740px;
-    padding: 10px 50px;
+    padding: 10px 30px;
     margin: 30px;
     border-radius: 6px;
     background: white;
+    font-size: 20px;
 }
 .listproduct-format-main{
     display: grid;
@@ -31,26 +32,43 @@
     margin: auto;
     height: 18px;
 }
+.listproduct-edit-icon{
+    cursor: pointer;
+    margin: auto;
+    height: 18px;
+}
 .listproduct-allproducts{
     overflow-y: auto;
 }
-@media(max-width:992px){
-    .list-product{
-        box-sizing: border-box;
-        width: 95%;
-        height: 100%;
-        padding: 10px 30px;
-        margin: 20px auto;
+@media(max-width: 992px) {
+    .list-product {
+      box-sizing: border-box;
+      width: 95%;
+      height: 100%;
+      padding: 10px 30px;
+      margin: 20px auto;
+      font-size: 15px;
     }
-    .listproduct-format-main{
-        padding: 15px 0px;
-        color: #454545;
-        font-size: 12px;
+  
+    .listproduct-format-main {
+      padding: 15px 0px;
+      color: #454545;
+      font-size: 12px;
     }
-    .listproduct-remove-icon{
-        height: 12px;
+  
+    .listproduct-remove-icon {
+      height: 12px;
     }
-    .listproduct-product-icon{
-        height: 80px;
+  
+    .listproduct-edit-icon {
+      height: 12px;
     }
-}
+  
+    .listproduct-product-icon {
+      height: 80px;
+    }
+  
+    .listproduct-allproducts {
+      max-height: 500px;  /* Tinggi untuk layar lebih kecil, menyesuaikan */
+    }
+  }
