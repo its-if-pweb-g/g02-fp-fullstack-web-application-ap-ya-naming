@@ -8,6 +8,7 @@ const path = require("path");
 const cors = require("cors");
 const { error } = require("console");
 const { type } = require("os");
+const bcrypt = require('bcrypt');
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -144,58 +145,89 @@ const Users = mongoose.model('Users',{
     }
 }, 'shoepping-users')
 
-// endpoint for user register
-app.post('/signup',async (req,res)=>{
-    let check = await Users.findOne({email:req.body.email});
-    if (check) {
-        return res.status(400).json({success:false,errors:"existing user found with same email address"})
-    }
-    let cart = {};
-    for (let i = 0; i < 300; i++) {
-        cart[i]=0;
-    }
-    const user = new Users({
-        name:req.body.username,
-        email:req.body.email,
-        password:req.body.password,
-        cartData:cart,
-    })
+app.post('/signup', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
 
-    await user.save();
-
-    const data = {
-        user:{
-            id:user.id
+        // Validasi format email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ success: false, errors: "Invalid email format" });
         }
+
+        // Validasi panjang password
+        if (password.length < 8) {
+            return res.status(400).json({ success: false, errors: "Password must be at least 8 characters long" });
+        }
+
+        // Cek apakah email sudah digunakan
+        let check = await Users.findOne({ email });
+        if (check) {
+            return res.status(400).json({ success: false, errors: "Existing user found with same email address" });
+        }
+
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Membuat data cart default
+        let cart = {};
+        for (let i = 0; i < 300; i++) {
+            cart[i] = 0;
+        }
+
+        // Menyimpan pengguna baru
+        const user = new Users({
+            name: username,
+            email,
+            password: hashedPassword,
+            cartData: cart,
+        });
+
+        await user.save();
+
+        // Membuat token
+        const data = {
+            user: {
+                id: user.id,
+            },
+        };
+
+        const token = jwt.sign(data, 'secret_ecom');
+        res.json({ success: true, token });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, errors: "Server error" });
     }
+});
 
-    const token = jwt.sign(data,'secret_ecom');
-    res.json({success:true,token})
-
-})
 
 // endpoint for user login
-app.post('/login',async (req,res)=>{
-    let user = await Users.findOne({email:req.body.email});
-    if (user){
-        const passCompare = req.body.password === user.password;
-        if (passCompare) {
-            const data = {
-                user:{
-                    id:user.id
-                }
+app.post('/login', async (req, res) => {
+    try {
+        let user = await Users.findOne({ email: req.body.email });
+        if (user) {
+            // Compare hashed password
+            const passCompare = await bcrypt.compare(req.body.password, user.password);
+            if (passCompare) {
+                const data = {
+                    user: {
+                        id: user.id,
+                    },
+                };
+                const token = jwt.sign(data, 'secret_ecom');
+                res.json({ success: true, token });
+            } else {
+                res.json({ success: false, errors: "Wrong Password" });
             }
-            const token = jwt.sign(data,'secret_ecom');
-            res.json({success:true,token});
+        } else {
+            res.json({ success: false, errors: "Email not registered" });
         }
-        else{
-            res.json({success:false,errors:"Wrong Password"});
-        }
-    }  
-    else{
-        res.json({success:false,errors:"Email not registered"});
-    }    
-})
+    } catch (error) {
+        res.status(500).json({ success: false, errors: "Server error" });
+    }
+});
+
 
 // endpoint new collection data
 app.get('/newcollections',async (req,res)=>{

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./AddProduct.css";
-import upload_area from '../../assets/Assets/upload_area.png' // belom ada file nya
+import upload_area from '../../assets/Assets/upload-area.png' // belom ada file nya
 
 const AddProduct = () => {
     const [image,setImage] = useState(false);
@@ -72,9 +72,9 @@ const AddProduct = () => {
       <div className="addproduct-itemfield">
           <p>Product Category</p>
           <select value={productDetails.category} onChange={changeHandler} name="category" className="add-product-selector">
-            <option value="Women">Women</option>
-            <option value="Men">Men</option>
-            <option value="Kid">Kid</option>
+            <option value="women">Women</option>
+            <option value="men">Men</option>
+            <option value="kid">Kid</option>
           </select>
         </div>
         <div className="addproduct-itemfield">

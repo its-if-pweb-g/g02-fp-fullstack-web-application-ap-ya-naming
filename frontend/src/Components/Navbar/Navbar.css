@@ -10,6 +10,9 @@
     align-items: center;
     gap: 10px;
 }
+.nav-logo img{
+    height: 58px;
+}
 .nav-menu{
     display: flex;
     align-items: center;
@@ -78,7 +81,7 @@
         padding: 12px 50px;
     }
     .nav-logo img{
-        width: 100px;
+        height: 45px;
     }
     .nav-logo p{
         font-size: 25px;

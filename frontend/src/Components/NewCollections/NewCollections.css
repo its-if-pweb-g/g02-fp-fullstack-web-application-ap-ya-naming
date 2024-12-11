@@ -16,15 +16,6 @@
     border-radius: 10px;
     background: #252525;
 }
-.collections{
-    /* margin: 20px 170px; */
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    /* row-gap: 80px; */
-    margin-top: 50px;
-    /* display: flex; */
-    gap: 30px; 
-}
 @media(max-width: 1280px) {
     .new-collections h1 {
         font-size: 40px;
