@@ -36,34 +36,45 @@ React JS, MongoDB, Express & Node JS
    `git clone https://github.com/its-if-pweb-g/g02-fp-fullstack-web-application-ap-ya-naming.git`
 2. Pindah ke direktori dari repository tersebut dengan menggunakan command `cd g02-fp-fullstack-web-application-ap-ya-naming`
 3. Install npm jika belum ada dengan command `npm install`
-4. Lalu, untuk menjalankan aplikasi ini ketikkan comand `npm start`
 
-## Install Dependencies
-Di folder frontend
+   ### Install Dependencies
+   Di folder frontend
 
-```
-npx create-react-app .
-npm install react-router-dom
-```
+   ```
+   npx create-react-app .
+   npm install react-router-dom
+   ```
+   Untuk menjalankan
+   ```
+   npm start
+   ```
 
-Di folder backend
-```
-npm init
-npm install express
-npm install jsonwebtoken
-npm install mongoose
-npm install multer
-npm install cors
-```
+   Di folder backend
+   ```
+   npm init
+   npm install express
+   npm install jsonwebtoken
+   npm install mongoose
+   npm install multer
+   npm install cors
+   npm install bcrypt
+   ```
+   Untuk menjalankan
+   ```
+   node .\index.js
+   ```
 
-Di folder admin
-```
-npm create vite@latest .
--- select react and javascript
-npm install
-npm run dev
-npm install react-router-dom
-```
+   Di folder admin
+   ```
+   npm create vite@latest .
+   -- select react and javascript
+   npm install
+   npm install react-router-dom
+   ```
+   Untuk menjalankan
+   ```
+   npm run dev
+   ```
 
 ## Progress pembuatan dan pembagian tugas per anggota
 
